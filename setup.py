@@ -89,7 +89,7 @@ setup(
     zip_safe=False,
     cmdclass={'test': PyTest},
 
-    install_requires=["numpy", "matplotlib", "opencv-contrib-python"],
+    install_requires=["numpy", "scipy", "matplotlib", "opencv-contrib-python"],
     tests_require=['pytest', 'coverage', 'pytest-cov'],
     extras_require={
         'testing': ['pytest', 'coverage', 'pytest-cov'],
