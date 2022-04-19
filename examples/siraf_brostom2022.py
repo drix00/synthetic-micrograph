@@ -102,6 +102,8 @@ import numpy as np
 from scipy.optimize import curve_fit
 from scipy.stats import sem
 from matplotlib.widgets import Slider, Button
+import time
+
 plt.close("all")
 plt.rcParams['xtick.labelsize'] = 30
 plt.rcParams['ytick.labelsize'] = 30
@@ -341,6 +343,7 @@ def Img_alg(img1,hanning=1,plots=0,weight_err=None,Han_lim = 1,Gibb_lim = 1):
 """
 The image is loaded and the algorithm is called and executed
 """
+t1 = time.time()
 
 # Load the image specified by the user
 img = cv2.imread(direct+"\\"+img_name,0) # Load the image
@@ -354,6 +357,8 @@ print("Sigma: {:.2f} +/- {:.2f} pixels".format(fitparams[0],fit_errs[0]))
 print("FWHM: {:.2f} +/- {:.2f} pixels".format(2.355*fitparams[0],2.355*fit_errs[0]))
 print("-----------------------------")
 
+t2 = time.time()
+print("SIRAF algorithm Brostom 2022 took " + str(t2 - t1) + " seconds")
 
 ###############################################################################
 ############################# Interactive Code ################################

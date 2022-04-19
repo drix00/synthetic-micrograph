@@ -41,6 +41,7 @@ Load the relevant packages needed to run the scripts
 import numpy as np 
 import matplotlib.pyplot as plt
 import cv2 as cv2
+import time
 
 ###############################################################################
 ##################################### Controls ################################
@@ -85,6 +86,8 @@ def on_trackbar(val):
 ###############################################################################
 #################################### Code #####################################
 ###############################################################################
+t1 = time.time()
+
 """
 This section contains the algorithm steps
 """
@@ -112,9 +115,13 @@ cv2.namedWindow("Threshold - press 'q' to proceed")
 cv2.imshow("Threshold - press 'q' to proceed", Normed_mag.astype(np.uint8))
 cv2.createTrackbar("Threshold Val", "Threshold - press 'q' to proceed" , 0, 255, on_trackbar)
 
+t2 = time.time()
+
 # Wait until user press some key
 if cv2.waitKey() & 0xFF == ord('q'):
     cv2.destroyAllWindows()
+
+t3 = time.time()
 
 # Opening and closing steps after thresholding. Necessary to remove unwanted noise
 kernel = np.ones((2,2),np.uint8)
@@ -165,9 +172,6 @@ plt.tight_layout()
 print("The image resolution is {0} pixels".format(img_res))
 print("The stigmatic error is {0}".format(eccentricity))
 
-
-
-
-
-
-
+t4 = time.time()
+elapse_time = (t2 - t1) + (t4 - t3)
+print("SMART algorithm Brostom 2022 took " + str(elapse_time) + " seconds")
