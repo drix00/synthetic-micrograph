@@ -28,6 +28,8 @@ import os.path
 from logging import getLogger
 import logging.config
 import os
+from functools import wraps
+import time
 
 # Third party modules.
 
@@ -100,3 +102,14 @@ def setup_logger():
     fh.setFormatter(formatter)
     fh.setLevel(logging.DEBUG)
     root_logger.addHandler(fh)
+
+
+def time_fn(fn):
+    @wraps(fn)
+    def measure_time(*args, **kargs):
+        t1 = time.time()
+        results = fn(*args, **kargs)
+        t2 = time.time()
+        print("@time_fn:" + fn.__name__ + " took " + str(t2 - t1) + " seconds")
+        return results
+    return measure_time

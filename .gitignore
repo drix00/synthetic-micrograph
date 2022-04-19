@@ -110,3 +110,6 @@ venv.bak/
 .settings
 .project
 .pydevproject
+
+# ignore image file
+*.png
