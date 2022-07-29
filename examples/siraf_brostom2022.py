@@ -16,7 +16,7 @@ All user inputs are given in the "Controls" section, which include image
 filename and directory.
 
 When running the code, both the fitted Gaussian FWHM and sigma values are 
-printed in the consol, and the fits are plotted for user assessment. The code
+printed in the console, and the fits are plotted for user assessment. The code
 can also produce an interactive plot, where users may adjust the sigma, beta,
 and c values manually in order to optimize the fit.
 
@@ -36,6 +36,7 @@ the inputs to specify where and which file is to be used for the analysis.
 Users should not alter the code in any other section as it might affect the 
 outcome  
 """
+from micrograph.timing import Timing
 
 # Specify the directory of the image
 direct = r"../data"
@@ -102,7 +103,6 @@ import numpy as np
 from scipy.optimize import curve_fit
 from scipy.stats import sem
 from matplotlib.widgets import Slider, Button
-import time
 
 plt.close("all")
 plt.rcParams['xtick.labelsize'] = 30
@@ -343,7 +343,8 @@ def Img_alg(img1,hanning=1,plots=0,weight_err=None,Han_lim = 1,Gibb_lim = 1):
 """
 The image is loaded and the algorithm is called and executed
 """
-t1 = time.time()
+timing = Timing()
+timing.start()
 
 # Load the image specified by the user
 img = cv2.imread(direct+"\\"+img_name,0) # Load the image
@@ -357,8 +358,8 @@ print("Sigma: {:.2f} +/- {:.2f} pixels".format(fitparams[0],fit_errs[0]))
 print("FWHM: {:.2f} +/- {:.2f} pixels".format(2.355*fitparams[0],2.355*fit_errs[0]))
 print("-----------------------------")
 
-t2 = time.time()
-print("SIRAF algorithm Brostom 2022 took " + str(t2 - t1) + " seconds")
+elapsed_time_s = timing.elapsed_time_s()
+print("SIRAF algorithm Brostom 2022 took " + str(elapsed_time_s) + " seconds")
 
 ###############################################################################
 ############################# Interactive Code ################################
@@ -368,7 +369,6 @@ Code related to the interactive plot, which allows for a manual fit
 """
 
 if interactive:
-    
     # Create the figure with a title, axis labels, and a grid
     fig, ax = plt.subplots()
     plt.title(r"$ c+log \left( 1+ \frac{ \sigma \beta }{ k \sqrt{ 2 \pi } } e^{ -2( \pi \sigma k)^{ 2 } } \right) $", fontsize = 20)

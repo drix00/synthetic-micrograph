@@ -1,0 +1,20 @@
+siraf_brostom2022.py
+-----------------------------
+Sigma: 1.23 +/- 0.01 pixels
+FWHM: 2.90 +/- 0.02 pixels
+-----------------------------
+SIRAF algorithm Brostom 2022 took 0.9686160999699496 seconds
+
+siraf.py
+-----------------------------
+Sigma: 1.23 +/- 0.01 pixels
+FWHM: 2.90 +/- 0.02 pixels
+-----------------------------
+SIRAF algorithm Demers took 0.9179623000090942 seconds
+
+siraf.py
+-----------------------------
+Sigma: 1.23 +/- 0.01 pixels
+FWHM: 2.90 +/- 0.02 pixels
+-----------------------------
+SIRAF algorithm Demers took 0.793727400014177 seconds
