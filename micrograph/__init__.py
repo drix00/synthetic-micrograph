@@ -30,6 +30,7 @@ import logging.config
 import os
 from functools import wraps
 import time
+from pathlib import Path
 
 # Third party modules.
 
@@ -47,27 +48,23 @@ __project_name__ = 'Synthetic-Micrograph'
 logger = getLogger(__name__)
 
 
-def get_current_module_path(module_filepath, relative_path=""):
+def get_current_module_path(module_path: str, relative_path: str = "") -> Path:
     """
-    Return the current module path by using :py:obj:`__file__` special module variable.
+    Extract the current module path by using :py:obj:`__file__` special module variable
+    and combine it with the relative path and return it.
 
     An example of usage::
 
         module_path = get_current_module_path(__file__)
 
-    :param str module_filepath: Pass :py:obj:`__file__` to get the current module path
-    :param str relative_path: Optional parameter to return a path relative to the module path
-    :return: a path, either the module path or a relative path from the module path
-    :rtype: str
+    :param str module_path: Pass the `__file__` python keyword for this parameter
+    :param str relative_path: The relative path to combine with the module path
+    :return: The path obtained when combine the module path and relative path
+    :rtype: Path
     """
-    base_path = os.path.dirname(module_filepath)
-    logger.debug(base_path)
-
-    file_path = os.path.join(base_path, relative_path)
-    logger.debug(file_path)
-
-    file_path = os.path.normpath(file_path)
-    logger.debug(file_path)
+    base_path = Path(module_path).parent
+    file_path = base_path.joinpath(relative_path)
+    file_path = file_path.resolve()
 
     return file_path
 
